@@ -50,8 +50,3 @@ lista_individual = [element for sublist in listas for element in sublist]
 
 
 
-
-
-
-
-
