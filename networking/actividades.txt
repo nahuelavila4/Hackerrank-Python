@@ -1,0 +1,78 @@
+Ejercicio 1: Echo Server
+
+Crea un servidor que escuche en un puerto determinado y que devuelva al cliente cualquier mensaje que reciba. Esto es conocido como un "echo server".
+
+    Servidor: El servidor debe estar en un ciclo infinito esperando mensajes de los clientes.
+    Cliente: El cliente debe enviar un mensaje al servidor y recibir la respuesta (que debe ser el mismo mensaje).
+
+Objetivo: Practicar la creación de clientes y servidores básicos.
+
+
+Ejercicio 2: Chat Simple de Cliente-Servidor
+
+Desarrolla un sistema de chat simple utilizando sockets. En este ejercicio, un cliente puede enviar mensajes al servidor, y el servidor puede reenviar estos mensajes a otros clientes conectados.
+
+    Servidor: El servidor debe aceptar múltiples conexiones de clientes.
+    Cliente: El cliente debe enviar mensajes al servidor y recibir mensajes de otros clientes.
+
+Objetivo: Trabajar con múltiples clientes y gestionar la comunicación simultánea.
+
+
+Ejercicio 3: Servidor HTTP Básico
+
+Escribe un servidor HTTP básico que escuche en un puerto determinado y responda con una página HTML simple cuando un cliente (navegador web) haga una solicitud.
+
+    Servidor: Cuando reciba una solicitud GET, debe responder con un HTML simple.
+    Cliente: Usa un navegador web o curl para hacer una solicitud HTTP al servidor.
+
+Objetivo: Familiarizarte con el protocolo HTTP y el manejo de solicitudes.
+
+
+Ejercicio 4: Escaneo de Puertos
+
+Crea un script de escaneo de puertos en Python que verifique si ciertos puertos en un host están abiertos o cerrados. Usa sockets para intentar conectarte a cada puerto.
+
+    Entrada: Dirección IP y rango de puertos.
+    Salida: Indica qué puertos están abiertos.
+
+Objetivo: Mejorar tu comprensión de los puertos y cómo interactúan los servicios de red.
+
+
+Ejercicio 5: Servidor de Archivos
+
+Desarrolla un sistema donde un cliente pueda solicitar archivos a un servidor, y el servidor envíe el archivo solicitado.
+
+    Servidor: Debería tener un directorio de archivos disponibles para que los clientes los soliciten.
+    Cliente: Debe solicitar un archivo por su nombre y recibir el contenido del archivo.
+
+Objetivo: Practicar el envío de archivos a través de una red.
+
+
+Ejercicio 6: Ping Personalizado
+
+Crea tu propio comando ping usando sockets y ICMP (esto requiere permisos de administrador). El cliente enviará un paquete ICMP (ping) a una dirección IP y medirá el tiempo de ida y vuelta.
+
+    Cliente: Envía paquetes ICMP y mide el tiempo de respuesta.
+    Servidor: Puede ser cualquier host que acepte pings (usa un servidor público para hacer las pruebas).
+
+Objetivo: Trabajar con paquetes ICMP y medir latencia en una red.
+
+
+Ejercicio 7: Conexión Segura con SSL
+
+Modifica tu servidor y cliente para que se comuniquen de manera segura usando SSL/TLS. Utiliza el módulo ssl de Python.
+
+    Servidor: Debe aceptar conexiones seguras utilizando un certificado SSL.
+    Cliente: Debe conectarse al servidor de manera segura usando SSL.
+
+Objetivo: Entender cómo asegurar conexiones utilizando SSL/TLS.
+
+
+Ejercicio 8: Proxy HTTP
+
+Crea un servidor proxy simple que acepte solicitudes HTTP de un cliente y las reenvíe a un servidor remoto. Luego, el servidor proxy debe devolver la respuesta al cliente.
+
+    Servidor: Actúa como intermediario entre el cliente y el servidor real.
+    Cliente: Realiza solicitudes HTTP al proxy.
+
+Objetivo: Practicar el reenvío de solicitudes y manejar conexiones HTTP desde ambos lados (cliente y servidor).
