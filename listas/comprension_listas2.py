@@ -49,36 +49,41 @@ for index, val in enumerate(numeros):
 # Anotaciones Hackerrank - Ejercicio 3
 # A partir de lista de listas, mostrar notas con segundo valor más bajo
 
-alumnos = [["Lucas", 29.6], ["Camila", 29.6], ["Facundo", 55.1], ["Sofia", 75], ["Maria", 15.6]]
-menor = None
-segundamenor = None
-
-for element in alumnos:
-    notaactual = element[1]
-    if menor is None or notaactual < menor:
-        segundamenor = menor
-        menor = notaactual
-    elif segundamenor is None or (notaactual > menor and notaactual < segundamenor):
-        segundamenor = notaactual
-
-alumnosbajanota = [element[0] for element in alumnos if element[1] == segundamenor]    
-alumnosbajanota.sort()
-print("Alumnos con la segunda nota más baja:\n"+"\n".join(alumnosbajanota))
-
-
 # Obtener las notas únicas:
 # En lugar de intentar mantener manualmente las dos notas más bajas, 
 # puedes recolectar todas las notas, eliminar duplicados y luego ordenar para encontrar las notas más bajas.
-#
 # Filtrar alumnos:
 # Una vez que se identifica la segunda nota más baja, se filtran los alumnos que tienen esa nota.
+""" 
+notas = sorted(set([alumno[1] for alumno in alumnos]))
+print(notas)
+# Identificar la segunda nota más baja, por orden esta en la posicion 2
+if len(notas) > 1:
+    segundamenor = notas[1] 
+else:
+    segundamenor = None 
+
+if segundamenor != None:
+    alumnosbajanota = [alumno[0] for alumno in alumnos if alumno[1] == segundamenor]
+    alumnosbajanota.sort()  
+    print("\n".join(alumnosbajanota))
+ """
+# ---------------------------------------------
+# Anotaciones Hackerrank - Ejercicio 4
+# A partir de lista de listas, mostrar notas con segundo valor más bajo
+
+alumnosprom = {
+    'Lucas': [92.00, 73.00, 12.00],
+    'Camila': [73.00, 19.00, 55.00],
+    'Cristian': [46.00, 75.00, 68.00],
+    'Gustavo': [12.00, 45.00, 58.00]
+}
+
+nombreprom = 'Camila'
+notas = alumnosprom[nombreprom]
+promedio = sum(notas) / len(notas)
 
 
-
-
-
-
-
-
+print(f"{promedio:.2f}")
 
 
