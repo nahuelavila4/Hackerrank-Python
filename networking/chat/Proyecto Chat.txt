@@ -1,0 +1,57 @@
+Proyecto: Chat de Red Simple con Python
+
+Crea un chat en red en el que varios clientes se puedan conectar a un servidor central y enviarse mensajes entre sí. El servidor gestionará el tráfico de mensajes entre los clientes.
+Especificaciones del proyecto:
+
+    Servidor multicliente:
+        El servidor debe permitir que varios clientes se conecten simultáneamente.
+        Cada cliente puede enviar un mensaje que será retransmitido a los demás clientes.
+
+    Cliente:
+        El cliente se conecta al servidor, envía y recibe mensajes.
+        Los mensajes que reciba deben aparecer inmediatamente en su consola.
+
+    Características adicionales (opcional):
+        Manejar desconexiones de clientes sin interrumpir la conexión de otros.
+        Agregar un sistema de nombres para que cada cliente pueda ver de quién proviene cada mensaje.
+
+Temas de Python que debes dominar para realizar este proyecto:
+
+    Sockets en Python:
+        Entender el concepto de sockets y cómo funcionan las conexiones TCP/IP.
+        Crear sockets de servidor y cliente.
+        Trabajar con las funciones socket() para establecer y aceptar conexiones.
+
+    Multihilo (Multithreading):
+        Implementar hilos para manejar múltiples clientes en paralelo.
+        Usar la librería threading para permitir que el servidor escuche múltiples conexiones al mismo tiempo.
+
+    Manejo de excepciones:
+        Gestionar los errores en conexiones de red, como clientes que se desconectan inesperadamente.
+
+    Entradas y salidas (I/O):
+        Trabajar con input() y print() para enviar y recibir datos del servidor y los clientes.
+        Usar las funciones recv() y sendall() de la biblioteca socket para transferir mensajes entre clientes y servidor.
+
+    Serialización y formatos de datos:
+        Si decides implementar mensajes más complejos (por ejemplo, con información estructurada), puedes necesitar librerías como json para serializar/deserializar datos enviados entre el cliente y el servidor.
+
+    Bucle principal:
+        Saber manejar el bucle principal en el servidor que constantemente acepte nuevas conexiones y maneje mensajes.
+        Implementar un bucle en los clientes que reciba mensajes del servidor de forma continua.
+
+Plan para abordar el proyecto:
+
+    Servidor básico:
+        Aprende a crear un servidor que acepte conexiones de un solo cliente.
+        Luego, expande el servidor para aceptar múltiples conexiones usando hilos.
+
+    Cliente:
+        Crea un cliente que se conecte al servidor y le envíe mensajes.
+        Asegúrate de que el cliente pueda recibir mensajes desde el servidor.
+
+    Sincronización y Broadcast:
+        El servidor debe retransmitir los mensajes recibidos a todos los clientes conectados.
+
+    Manejo de Desconexiones:
+        Asegúrate de que si un cliente se desconecta, el servidor y los demás clientes sigan funcionando.
