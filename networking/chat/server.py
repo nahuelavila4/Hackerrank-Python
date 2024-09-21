@@ -1,17 +1,33 @@
 import socket
 import threading
 
+# calculate how many bytes to receive from client
+def receive_msg(client):
+    message = ""
+    while True:
+        part = client.recv(1024).decode()  # Recibe en fragmentos
+        message += part
+        if '\n' in part:  # Verifica si hay un delimitador
+            break
+    return message.strip() 
+
+# send message
+def send_msg(client, message):
+    formatted_msg = f"{len(message):02}"
+    client.send(formatted_msg.encode())
+
 # Manage specific client message
 def handle_client(client):
     while True:
         try:
             # Transform bytes to text - recv receive up to 1024 bytes
-            message = client.recv(1024).decode()
-            if not message:
-                break # Exit loop if client close connection
+            message = receive_msg(client)
+            if message == "EXIT" or not message:
+                print("Client disconnect")
+                break # If client close connection
             print(f"Client message: {message}")
-            client.sendall(b"message received")
-        except Exception as e:
+            send_msg(client, message) # Response to the client
+        except (Exception, KeyboardInterrupt) as e:
             print(f"Error: {e}")
     client.close()
 
@@ -24,11 +40,11 @@ def main():
 
     # Principal Loop
     while True:
-        (clientsocket, clientaddress) = server.accept() # Wait Connections
-        print(f"Connection accepted for: {clientaddress}")
+        (clientsocket, addr) = server.accept() # Wait Connections
+        print(f"Connection accepted for: {addr}")
     
-        client_thread1 = threading.Thread(target=handle_client, args=(clientsocket,))
-        client_thread1.start()
+        client_thread = threading.Thread(target=handle_client, args=(clientsocket,))
+        client_thread.start()
 
 if __name__ == "__main__":
     main()
