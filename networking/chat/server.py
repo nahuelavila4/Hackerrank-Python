@@ -1,29 +1,34 @@
 import socket
 import threading
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(('localhost', 8080))
-server.listen(5)
-print("The server is waiting for connections")
-
-# Manage client message
+# Manage specific client message
 def handle_client(client):
     while True:
-        message = clientsocket.recv(1024).decode()
-        if not message:
-            break
-        print(f"Client message: {message}")
+        try:
+            # Transform bytes to text - recv receive up to 1024 bytes
+            message = client.recv(1024).decode()
+            if not message:
+                break # Exit loop if client close connection
+            print(f"Client message: {message}")
+            client.sendall(b"message received")
+        except Exception as e:
+            print(f"Error: {e}")
     client.close()
 
+# Principal function to server
+def main():
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind(('127.0.0.1', 8080))
+    server.listen(5)
+    print("Waiting for connections...")
 
-while True:
-    # Wait Connections
-    (clientsocket, clientaddress) = server.accept()
-    print(f"Connection accepted for: {clientaddress}")
+    # Principal Loop
+    while True:
+        (clientsocket, clientaddress) = server.accept() # Wait Connections
+        print(f"Connection accepted for: {clientaddress}")
     
-    # Transform bytes to text - .recv() receive up to 1024 bytes
-    message = clientsocket.recv(1024).decode()
-    print(f"Client message: {message}")
+        client_thread1 = threading.Thread(target=handle_client, args=(clientsocket,))
+        client_thread1.start()
 
-    clientsocket.send("Hello mister client".encode())
-
+if __name__ == "__main__":
+    main()
