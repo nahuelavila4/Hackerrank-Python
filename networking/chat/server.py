@@ -18,18 +18,22 @@ def send_msg(client, message):
 
 # Manage specific client message
 def handle_client(client):
-    while True:
-        try:
+    try:
+        # Client name
+        name = client.recv(1024).decode()
+        print("Client name: "+ name)
+        while True:
             # Transform bytes to text - recv receive up to 1024 bytes
             message = receive_msg(client)
-            if message == "EXIT" or not message:
+            if message.strip().lower() == "exit" or not message:
                 print("Client disconnect")
                 break # If client close connection
-            print(f"Client message: {message}")
+            print(f"Client {name}: {message}")
             send_msg(client, message) # Response to the client
-        except (Exception, KeyboardInterrupt) as e:
-            print(f"Error: {e}")
-    client.close()
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        client.close()
 
 # Principal function to server
 def main():
@@ -39,12 +43,20 @@ def main():
     print("Waiting for connections...")
 
     # Principal Loop
-    while True:
-        (clientsocket, addr) = server.accept() # Wait Connections
-        print(f"Connection accepted for: {addr}")
-    
-        client_thread = threading.Thread(target=handle_client, args=(clientsocket,))
-        client_thread.start()
+    try:
+        while True:
+            (clientsocket, addr) = server.accept() # Wait Connections
+            print(f"Connection accepted for: {addr}")
+            client_thread = threading.Thread(target=handle_client, args=(clientsocket,))
+            client_thread.start()
+    except KeyboardInterrupt: # Eg ctrl+c
+        print("\n Shutting down the server.")
+    except ConnectionError:
+        print("Connection error. The server might not be available.")
+    except Exception as e:  # Any other exception
+        print(f"Ocurrió un error: {e}")
+    finally:
+        server.close()
 
 if __name__ == "__main__":
     main()
