@@ -1,0 +1,38 @@
+Pasos para implementar el chat grupal:
+
+    Mantener una lista de clientes conectados:
+        Necesitarás mantener una lista global (o alguna estructura compartida) que almacene los sockets
+        de todos los clientes conectados al servidor. De esta manera, cuando un cliente envíe un mensaje, 
+        el servidor puede enviarlo a todos los demás.
+
+    Enviar el mensaje a todos los clientes:
+        Cuando un cliente envía un mensaje al servidor, el servidor debe recorrer la lista de clientes
+        conectados y reenviar ese mensaje a cada uno de ellos, excluyendo al cliente que lo envió.
+
+    Gestionar desconexiones:
+        Si un cliente se desconecta, asegúrate de eliminar su socket de la lista de clientes conectados
+        para evitar errores de envío a clientes que ya no están presentes.
+
+Paso a paso
+1. Crear una lista de clientes
+En el servidor, debes tener una lista global que almacene los clientes conectados. Cada vez que aceptes 
+una nueva conexión, agrega el socket a esa lista.
+
+2. Modificar la función handle_client
+Dentro de la función que maneja a cada cliente, cuando recibas un mensaje, debes propagarlo a todos los
+demás clientes en la lista.
+
+3. Enviar mensajes a todos
+El servidor, en lugar de enviar el mensaje solo al remitente, lo enviará a todos los clientes, excepto
+al que lo envió.
+
+4. Manejar desconexiones
+Si un cliente cierra la conexión, lo eliminas de la lista de clientes para que no se le sigan enviando mensajes.
+Ejemplo de flujo:
+
+    Cliente se conecta: Lo añades a la lista de clientes.
+    Cliente envía un mensaje:
+        Recibes el mensaje en el servidor.
+        Reenvías ese mensaje a todos los clientes conectados.
+    Cliente se desconecta:
+        Lo eliminas de la lista para no seguir enviándole mensajes.

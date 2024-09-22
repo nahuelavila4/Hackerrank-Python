@@ -15,7 +15,7 @@ try:
 
         # Receive server response
         response = client.recv(1024).decode()
-        print(f"Your message has been received. Lenght: {response}")
+        print(response)
 except KeyboardInterrupt:
     print("\nDisconnect from the server")
 except Exception as e:
