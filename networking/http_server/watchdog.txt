@@ -1,0 +1,20 @@
+
+from watchdog.observers import Observer
+from watchdog.events import DirModifiedEvent, FileModifiedEvent, FileSystemEventHandler
+
+class event_handler(FileSystemEventHandler):
+    def on_modified(self, event: DirModifiedEvent | FileModifiedEvent) -> None:
+        return super().on_modified(event)
+    
+observer = Observer()
+observer.schedule(event_handler(), "/networking", recursive = True )
+observer.start()
+try:
+    while observer.is_alive():
+        observer.join(1)
+except KeyboardInterrupt:
+    observer.stop()
+observer.join()
+
+
+
