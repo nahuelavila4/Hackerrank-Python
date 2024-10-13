@@ -1,8 +1,6 @@
 import socket
 import os
 
-STATIC_DIR = "./static"
-
 def build_response(status, content_type, body):
     # Si el cuerpo es un string, lo codificamos en bytes
     if isinstance(body, str):
@@ -30,26 +28,25 @@ def get_content_type(file_path):
         return "application/octet-stream" 
     
 def handle_static_file(client_socket, file_path):
+    dir = "./static"
     try:
-        if file_path == "/":
-            file_path = "index.html"
-        else:
-            # Eliminar el "/" inicial de la URL para crear correctamente la ruta
-            if file_path.startswith("/"):
-                file_path = file_path[1:]
-
-        full_path = os.path.join("static", file_path).replace("\\", "/")
+        if file_path.startswith("/"):
+            file_path = file_path[1:]
+        if file_path == "hola":
+            response = build_response("200 OK", "text/html", "<h1>Buenas tardes</h1>")
+            
+        full_path = os.path.join(dir, file_path)
         print("path "+file_path)
-        print(f"Full path: {full_path}")
+        print(f"Full path: {full_path}\r")
+
         if os.path.exists(full_path) and os.path.isfile(full_path):
             with open(full_path, "rb") as file:  # Abrir en modo binario para archivos de imagen
                 content = file.read()
             content_type = get_content_type(full_path)
             response = build_response("200 OK", content_type, content)
-            client_socket.sendall(response)
         else: 
             response = build_response("404 Not found", "text/html", "<h1>404 Not Found</h1>")
-            client_socket.sendall(response)
+        client_socket.sendall(response)
     except Exception as e:
         print(f"Error: {e}")
 
@@ -70,7 +67,7 @@ while True:
         method, url, http_version = request_line.split()
 
         if url == "/":
-            url = "/index.html"  # Redirigir a index.html si es la raíz
+            url = "index.html"  # Redirigir a index.html si es la raíz
         handle_static_file(client_socket, url)  
     except Exception as e:
         print(f"Error: {e}")

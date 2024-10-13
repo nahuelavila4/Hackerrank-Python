@@ -1,28 +1,28 @@
 import socket
+from pwn import *
 
 def run_client():
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
+    # client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     HOST = "127.0.0.1"
     PORT = 2354
 
-    client.connect((HOST, PORT))
+    r = remote(HOST, PORT)
+    #client.connect((HOST, PORT))
 
     while True:
         #Message to the server
         msg = input("Enter message: ")
-        client.send(msg.encode("utf-8")[:1024])
+        r.sendline(msg.encode("utf-8"))
 
         #Receive message
-        response = client.recv(1024)
-        response = response.decode("utf-8")
+        response = r.recv(1024)
 
         if (response.lower() == "closed"):
             break
-        print(f"Received: {response}")
+        print(response.decode("utf-8"))
 
     #close client socket (connection to the server)
-    client.close()
+    r.close()
     print("Connection to server closed")
 
 run_client()
