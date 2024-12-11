@@ -1,0 +1,10 @@
+1. Automatizacion de analisis multiples archivos de registro
+    dentro de un directorio
+
+2. Reportes con graficos (Matplotlib)    
+    representar visualmente resultados de analisis, como distribucion
+    de codigo de estado HTTP
+
+3. Servidor web para captura de logs (Flask)
+    servidor simple que registre peticiones que recibe y las guarde
+    en archivo log. Despues usar script para analizarlos.
